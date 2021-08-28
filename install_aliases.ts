@@ -1,8 +1,5 @@
-import { existsSync } from "https://deno.land/std@0.106.0/fs/mod.ts";
-import {
-  normalize,
-  fromFileUrl,
-} from "https://deno.land/std@0.106.0/path/mod.ts";
+import { existsSync } from "./deps.ts";
+import { normalize, fromFileUrl } from "./deps.ts";
 import { appendToFile } from "./utils/file_handler.ts";
 import { getShellConfigFullPath } from "./utils/shell_handler.ts";
 

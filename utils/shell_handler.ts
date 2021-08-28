@@ -1,4 +1,4 @@
-import { basename } from "https://deno.land/std@0.106.0/path/mod.ts";
+import { basename } from "../deps.ts";
 
 export function getShellConfigFullPath(): string | void {
   const shellPath = Deno.env.get("SHELL");

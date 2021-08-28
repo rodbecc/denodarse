@@ -1,5 +1,5 @@
-import { basename } from "https://deno.land/std@0.106.0/path/mod.ts";
-import { existsSync } from "https://deno.land/std@0.106.0/fs/mod.ts";
+import { existsSync } from "../deps.ts";
+import { basename } from "../deps.ts";
 
 export async function appendToFile(filePath: string, commands: string[]) {
   const escapedCommands = commands.map((command) => `${command}`).join("\n");

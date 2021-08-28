@@ -1,9 +1,6 @@
-import Ask from "https://deno.land/x/ask@1.0.6/mod.ts";
-import iro, { bold, yellow } from "https://deno.land/x/iro@1.0.3/mod.ts";
-import {
-  fromFileUrl,
-  dirname,
-} from "https://deno.land/std@0.106.0/path/mod.ts";
+import { Ask } from "./deps.ts";
+import { iro, iroColors } from "./deps.ts";
+import { fromFileUrl, dirname } from "./deps.ts";
 import { appendToFile } from "./utils/file_handler.ts";
 import { getShellConfigFullPath } from "./utils/shell_handler.ts";
 
@@ -46,6 +43,7 @@ async function checkNewVersion() {
 async function promptUpdate() {
   const ask = new Ask();
 
+  const { bold, yellow } = iroColors;
   const { shouldUpdate } = await ask.confirm({
     name: "shouldUpdate",
     prefix: ">",
