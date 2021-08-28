@@ -1,8 +1,8 @@
-import { Ask } from "./deps.ts";
-import { iro, iroColors } from "./deps.ts";
-import { fromFileUrl, dirname } from "./deps.ts";
-import { appendToFile } from "./utils/file_handler.ts";
-import { getShellConfigFullPath } from "./utils/shell_handler.ts";
+import { Ask } from "../deps.ts";
+import { iro, iroColors } from "../deps.ts";
+import { fromFileUrl, dirname } from "../deps.ts";
+import { appendToFile } from "../utils/file_handler.ts";
+import { getShellConfigFullPath } from "../utils/shell_handler.ts";
 
 const thisScript = fromFileUrl(import.meta.url);
 const cwd = dirname(thisScript);
