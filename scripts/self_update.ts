@@ -35,7 +35,7 @@ async function checkNewVersion() {
     }).output()
   );
 
-  if (localHash === originHash) {
+  if (localHash !== originHash) {
     promptUpdate();
   }
 }
