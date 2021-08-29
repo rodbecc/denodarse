@@ -13,7 +13,9 @@ function installAliases() {
 
     const validPaths = paths.filter((path) => existsSync(path));
     const commands = validPaths.map((scriptPath) => `source ${scriptPath}`);
-    appendToFile(shellConfigFilePath, commands);
+
+    const commentLine = "# Deno Scripts - Aliases installed:";
+    appendToFile(shellConfigFilePath, [commentLine, ...commands]);
   }
 }
 
