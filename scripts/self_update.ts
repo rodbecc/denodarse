@@ -7,6 +7,10 @@ import { getShellConfigFullPath } from "../utils/shell_handler.ts";
 const thisScript = fromFileUrl(import.meta.url);
 const cwd = dirname(thisScript);
 
+Deno.args.includes("install")
+  ? installSelfUpdateOnShellStart()
+  : checkNewVersion();
+
 function installSelfUpdateOnShellStart() {
   const commentLine = "# Deno Scripts - Self update script:";
   const command = `deno run --unstable --allow-all ${thisScript}`;
@@ -17,8 +21,14 @@ function installSelfUpdateOnShellStart() {
 }
 
 async function checkNewVersion() {
+  const _fetch = await Deno.run({
+    cmd: "git fetch -q origin master".split(" "),
+    cwd,
+  }).status();
+
   const gitLogOriginCmd = "git log origin/master -1 --format=%H".split(" ");
   const gitLogLocalCmd = "git log master -1 --format=%H".split(" ");
+
   const decoder = new TextDecoder();
 
   const localHash = decoder.decode(
@@ -60,13 +70,13 @@ async function promptUpdate() {
 }
 
 async function update() {
-  const cmd = "git pull origin master".split(" ");
   await Deno.run({
-    cmd,
+    cmd: "git checkout -q master".split(" "),
+    cwd,
+  }).status();
+
+  await Deno.run({
+    cmd: "git pull origin master --ff-only".split(" "),
     cwd,
   }).status();
 }
-
-Deno.args.includes("install")
-  ? installSelfUpdateOnShellStart()
-  : checkNewVersion();
