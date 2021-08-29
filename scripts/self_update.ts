@@ -8,10 +8,11 @@ const thisScript = fromFileUrl(import.meta.url);
 const cwd = dirname(thisScript);
 
 function installSelfUpdateOnShellStart() {
+  const commentLine = "# Deno Scripts - Self update script:";
   const command = `deno run --unstable --allow-all ${thisScript}`;
   const configFile = getShellConfigFullPath();
   if (configFile) {
-    appendToFile(configFile, [command]);
+    appendToFile(configFile, [commentLine, command]);
   }
 }
 
@@ -48,7 +49,7 @@ async function promptUpdate() {
     name: "shouldUpdate",
     prefix: ">",
     message: iro(
-      "O Projeto DevOps possui novas atualizações. Deseja atualizar?",
+      "There is a new version of Deno Scripts. Do you want to update?",
       bold,
       yellow
     ),
