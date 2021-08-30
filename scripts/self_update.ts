@@ -22,12 +22,12 @@ function installSelfUpdateOnShellStart() {
 
 async function checkNewVersion() {
   const _fetch = await Deno.run({
-    cmd: "git fetch -q origin master".split(" "),
+    cmd: "git fetch -q origin main".split(" "),
     cwd,
   }).status();
 
-  const gitLogOriginCmd = "git log origin/master -1 --format=%H".split(" ");
-  const gitLogLocalCmd = "git log master -1 --format=%H".split(" ");
+  const gitLogOriginCmd = "git log origin/main -1 --format=%H".split(" ");
+  const gitLogLocalCmd = "git log main -1 --format=%H".split(" ");
 
   const decoder = new TextDecoder();
 
@@ -36,14 +36,14 @@ async function checkNewVersion() {
       cmd: gitLogOriginCmd,
       stdout: "piped",
       cwd,
-    }).output(),
+    }).output()
   );
   const originHash = decoder.decode(
     await Deno.run({
       cmd: gitLogLocalCmd,
       stdout: "piped",
       cwd,
-    }).output(),
+    }).output()
   );
 
   if (localHash !== originHash) {
@@ -61,7 +61,7 @@ async function promptUpdate() {
     message: iro(
       "There is a new version of Deno Scripts. Do you want to update?",
       bold,
-      yellow,
+      yellow
     ),
     type: "confirm",
   });
@@ -71,12 +71,12 @@ async function promptUpdate() {
 
 async function update() {
   await Deno.run({
-    cmd: "git checkout -q master".split(" "),
+    cmd: "git checkout -q main".split(" "),
     cwd,
   }).status();
 
   await Deno.run({
-    cmd: "git pull origin master --ff-only".split(" "),
+    cmd: "git pull origin main --ff-only".split(" "),
     cwd,
   }).status();
 }
