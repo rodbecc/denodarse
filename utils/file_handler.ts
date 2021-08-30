@@ -12,7 +12,7 @@ export async function appendToFile(filePath: string, textLines: string[]) {
       console.log(`The ${fileName} file was updated!`);
     } catch {
       console.error(
-        `An error ocurred while trying to write to ${fileName} file!`
+        `An error ocurred while trying to write to ${fileName} file!`,
       );
     }
   }

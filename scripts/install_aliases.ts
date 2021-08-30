@@ -1,5 +1,5 @@
 import { existsSync } from "../deps.ts";
-import { normalize, fromFileUrl } from "../deps.ts";
+import { fromFileUrl, normalize } from "../deps.ts";
 import { appendToFile } from "../utils/file_handler.ts";
 import { getShellConfigFullPath } from "../utils/shell_handler.ts";
 
