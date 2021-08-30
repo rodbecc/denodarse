@@ -1,6 +1,6 @@
 import { Ask } from "../deps.ts";
 import { iro, iroColors } from "../deps.ts";
-import { fromFileUrl, dirname } from "../deps.ts";
+import { dirname, fromFileUrl } from "../deps.ts";
 import { appendToFile } from "../utils/file_handler.ts";
 import { getShellConfigFullPath } from "../utils/shell_handler.ts";
 
@@ -36,14 +36,14 @@ async function checkNewVersion() {
       cmd: gitLogOriginCmd,
       stdout: "piped",
       cwd,
-    }).output()
+    }).output(),
   );
   const originHash = decoder.decode(
     await Deno.run({
       cmd: gitLogLocalCmd,
       stdout: "piped",
       cwd,
-    }).output()
+    }).output(),
   );
 
   if (localHash !== originHash) {
@@ -61,7 +61,7 @@ async function promptUpdate() {
     message: iro(
       "There is a new version of Deno Scripts. Do you want to update?",
       bold,
-      yellow
+      yellow,
     ),
     type: "confirm",
   });
