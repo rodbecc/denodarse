@@ -1,1 +1,1 @@
-export type { DenonConfig } from "https://deno.land/x/denon@2.4.7/mod.ts";
+export type { ScriptsConfiguration } from "https://deno.land/x/velociraptor@1.1.0/mod.ts";

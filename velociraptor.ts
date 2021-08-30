@@ -1,6 +1,6 @@
-import { DenonConfig } from "./dev_deps.ts";
+import { ScriptsConfiguration } from "./dev_deps.ts";
 
-const config: DenonConfig = {
+export default <ScriptsConfiguration> {
   scripts: {
     install_docker_aliases: {
       cmd: "deno run scripts/install_aliases.ts docker",
@@ -25,5 +25,3 @@ const config: DenonConfig = {
     },
   },
 };
-
-export default config;

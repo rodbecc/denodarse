@@ -20,6 +20,6 @@ jobs:
 
       - name: Run linter
         run: deno lint
-
-      - name: Run tests
-        run: deno test -A --unstable
+      # Uncomment when the repository has tests
+      # - name: Run tests
+      #   run: deno test -A --unstable --allow-env
