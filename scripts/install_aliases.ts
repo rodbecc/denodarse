@@ -1,7 +1,7 @@
-import { existsSync } from "../deps.ts";
-import { fromFileUrl, normalize } from "../deps.ts";
-import { appendToFile } from "../utils/file_handler.ts";
-import { getShellConfigFullPath } from "../utils/shell_handler.ts";
+import { existsSync } from "/deps.ts";
+import { fromFileUrl, normalize } from "/deps.ts";
+import { appendToFile } from "/utils/file_handler.ts";
+import { getShellConfigFullPath } from "/utils/shell_handler.ts";
 
 function installAliases() {
   const shellConfigFilePath = getShellConfigFullPath();

@@ -1,8 +1,8 @@
-import { Ask } from "../deps.ts";
-import { iro, iroColors } from "../deps.ts";
-import { dirname, fromFileUrl } from "../deps.ts";
-import { appendToFile } from "../utils/file_handler.ts";
-import { getShellConfigFullPath } from "../utils/shell_handler.ts";
+import { Ask } from "/deps.ts";
+import { iro, iroColors } from "/deps.ts";
+import { dirname, fromFileUrl, normalize } from "/deps.ts";
+import { appendToFile } from "/utils/file_handler.ts";
+import { getShellConfigFullPath } from "/utils/shell_handler.ts";
 
 const thisScript = fromFileUrl(import.meta.url);
 const cwd = dirname(thisScript);
@@ -11,9 +11,13 @@ Deno.args.includes("install")
   ? installSelfUpdateOnShellStart()
   : checkNewVersion();
 
+// TODO: When installing the self_update script, transforms it in a binary,
+// so we don't need to worry with paths
 function installSelfUpdateOnShellStart() {
+  const importMap = normalize(`${cwd}/../import_map.json`);
   const commentLine = "# Deno Scripts - Self update script:";
-  const command = `deno run --unstable --allow-all ${thisScript}`;
+  const command =
+    `deno run --unstable --import-map=${importMap} --allow-all ${thisScript}`;
   const configFile = getShellConfigFullPath();
   if (configFile) {
     appendToFile(configFile, [commentLine, command]);
@@ -36,14 +40,14 @@ async function checkNewVersion() {
       cmd: gitLogOriginCmd,
       stdout: "piped",
       cwd,
-    }).output()
+    }).output(),
   );
   const originHash = decoder.decode(
     await Deno.run({
       cmd: gitLogLocalCmd,
       stdout: "piped",
       cwd,
-    }).output()
+    }).output(),
   );
 
   if (localHash !== originHash) {
@@ -61,7 +65,7 @@ async function promptUpdate() {
     message: iro(
       "There is a new version of Deno Scripts. Do you want to update?",
       bold,
-      yellow
+      yellow,
     ),
     type: "confirm",
   });
