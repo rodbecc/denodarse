@@ -1,6 +1,6 @@
-import { Ask } from "/deps.ts";
-import { iro, iroColors } from "/deps.ts";
-import { dirname, fromFileUrl } from "/deps.ts";
+import Ask from "ask";
+import iro, { bold, yellow } from "iro";
+import { dirname, fromFileUrl } from "std/path";
 
 const cwd = dirname(fromFileUrl(import.meta.url));
 
@@ -40,7 +40,6 @@ async function checkNewVersion() {
 async function promptUpdate() {
   const ask = new Ask();
 
-  const { bold, yellow } = iroColors;
   const { shouldUpdate } = await ask.confirm({
     name: "shouldUpdate",
     prefix: ">",

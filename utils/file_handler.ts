@@ -1,5 +1,5 @@
-import { existsSync } from "/deps.ts";
-import { basename } from "/deps.ts";
+import { existsSync } from "std/fs";
+import { basename } from "std/path";
 
 export async function appendToFile(filePath: string, textLines: string[]) {
   const escapedCommands = textLines.map((command) => `${command}`).join("\n");
