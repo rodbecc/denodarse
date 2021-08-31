@@ -1,28 +1,10 @@
-import { Ask } from "/deps.ts";
-import { iro, iroColors } from "/deps.ts";
-import { dirname, fromFileUrl, normalize } from "/deps.ts";
-import { appendToFile } from "/utils/file_handler.ts";
-import { getShellConfigFullPath } from "/utils/shell_handler.ts";
+import Ask from "ask";
+import iro, { bold, yellow } from "iro";
+import { dirname, fromFileUrl } from "std/path";
 
-const thisScript = fromFileUrl(import.meta.url);
-const cwd = dirname(thisScript);
+const cwd = dirname(fromFileUrl(import.meta.url));
 
-Deno.args.includes("install")
-  ? installSelfUpdateOnShellStart()
-  : checkNewVersion();
-
-// TODO: When installing the self_update script, transforms it in a binary,
-// so we don't need to worry with paths
-function installSelfUpdateOnShellStart() {
-  const importMap = normalize(`${cwd}/../import_map.json`);
-  const commentLine = "# Deno Scripts - Self update script:";
-  const command =
-    `deno run --unstable --import-map=${importMap} --allow-all ${thisScript}`;
-  const configFile = getShellConfigFullPath();
-  if (configFile) {
-    appendToFile(configFile, [commentLine, command]);
-  }
-}
+checkNewVersion();
 
 async function checkNewVersion() {
   const _fetch = await Deno.run({
@@ -58,7 +40,6 @@ async function checkNewVersion() {
 async function promptUpdate() {
   const ask = new Ask();
 
-  const { bold, yellow } = iroColors;
   const { shouldUpdate } = await ask.confirm({
     name: "shouldUpdate",
     prefix: ">",
@@ -74,13 +55,25 @@ async function promptUpdate() {
 }
 
 async function update() {
-  await Deno.run({
+  const checkoutToMainCmd = Deno.run({
     cmd: "git checkout -q main".split(" "),
+    stderr: "piped",
     cwd,
-  }).status();
+  });
 
-  await Deno.run({
+  const [changedToMain, error] = await Promise.all([
+    checkoutToMainCmd.status().then((status) => status.success),
+    checkoutToMainCmd.stderrOutput(),
+  ]);
+
+  checkoutToMainCmd.close();
+
+  const runPullOriginMainCmd = Deno.run({
     cmd: "git pull origin main --ff-only".split(" "),
     cwd,
-  }).status();
+  });
+
+  await (changedToMain
+    ? runPullOriginMainCmd.status()
+    : Promise.reject(new TextDecoder().decode(error)));
 }

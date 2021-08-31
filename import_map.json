@@ -1,6 +1,10 @@
 {
   "imports": {
     "/": "./",
-    "./": "./"
+    "./": "./",
+    "std/fs": "https://deno.land/std@0.106.0/fs/mod.ts",
+    "std/path": "https://deno.land/std@0.106.0/path/mod.ts",
+    "ask": "https://deno.land/x/ask@1.0.6/mod.ts",
+    "iro": "https://deno.land/x/iro@1.0.3/mod.ts"
   }
 }
