@@ -16,7 +16,7 @@ Add the **Deno** binary to the PATH variable in your shell configuration file.
 For ZSH shell, for instance:
 
 ```sh
-echo 'export DENO_INSTALL="/Users/yourUser/.deno"' >> ~/.zshrc
+echo 'export DENO_INSTALL="/Users/$USER/.deno"' >> ~/.zshrc
 echo 'export PATH="$DENO_INSTALL/bin:$PATH"' >> ~/.zshrc
 ```
 
@@ -24,10 +24,10 @@ Install **Velociraptor** to watch files, list available scripts, and run
 predefined scripts:
 
 ```sh
-deno install -qA -n vr https://deno.land/x/velociraptor/cli.ts
+deno install -qA -n vr https://deno.land/x/velociraptor@1.1.0/cli.ts
 ```
 
-To list all available scripts, run Denon with no args:
+To list all available scripts, run **Velociraptor** with no args:
 
 ```sh
 vr

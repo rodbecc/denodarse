@@ -15,11 +15,13 @@ jobs:
         uses: denoland/setup-deno@v1
         with:
           deno-version: v1.13.2
+
       - name: Verify formatting
         run: deno fmt --check
 
       - name: Run linter
         run: deno lint
+        
       # Uncomment when the repository has tests
       # - name: Run tests
       #   run: deno test -A --unstable --allow-env
