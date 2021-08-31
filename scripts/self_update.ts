@@ -1,28 +1,10 @@
 import { Ask } from "/deps.ts";
 import { iro, iroColors } from "/deps.ts";
-import { dirname, fromFileUrl, normalize } from "/deps.ts";
-import { appendToFile } from "/utils/file_handler.ts";
-import { getShellConfigFullPath } from "/utils/shell_handler.ts";
+import { dirname, fromFileUrl } from "/deps.ts";
 
-const thisScript = fromFileUrl(import.meta.url);
-const cwd = dirname(thisScript);
+const cwd = dirname(fromFileUrl(import.meta.url));
 
-Deno.args.includes("install")
-  ? installSelfUpdateOnShellStart()
-  : checkNewVersion();
-
-// TODO: When installing the self_update script, transforms it in a binary,
-// so we don't need to worry with paths
-function installSelfUpdateOnShellStart() {
-  const importMap = normalize(`${cwd}/../import_map.json`);
-  const commentLine = "# Deno Scripts - Self update script:";
-  const command =
-    `deno run --unstable --import-map=${importMap} --allow-all ${thisScript}`;
-  const configFile = getShellConfigFullPath();
-  if (configFile) {
-    appendToFile(configFile, [commentLine, command]);
-  }
-}
+checkNewVersion();
 
 async function checkNewVersion() {
   const _fetch = await Deno.run({
