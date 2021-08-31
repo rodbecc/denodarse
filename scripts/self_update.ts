@@ -56,13 +56,25 @@ async function promptUpdate() {
 }
 
 async function update() {
-  await Deno.run({
+  const checkoutToMainCmd = Deno.run({
     cmd: "git checkout -q main".split(" "),
+    stderr: "piped",
     cwd,
-  }).status();
+  });
 
-  await Deno.run({
+  const [changedToMain, error] = await Promise.all([
+    checkoutToMainCmd.status().then((status) => status.success),
+    checkoutToMainCmd.stderrOutput(),
+  ]);
+
+  checkoutToMainCmd.close();
+
+  const runPullOriginMainCmd = Deno.run({
     cmd: "git pull origin main --ff-only".split(" "),
     cwd,
-  }).status();
+  });
+
+  await (changedToMain
+    ? runPullOriginMainCmd.status()
+    : Promise.reject(new TextDecoder().decode(error)));
 }
