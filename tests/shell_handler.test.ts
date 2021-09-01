@@ -1,4 +1,4 @@
-import { assertEquals, mock, stub } from "/dev_deps.ts";
+import { assertEquals, assertThrows, mock, stub } from "/dev_deps.ts";
 import { getShellConfigFullPath } from "/utils/shell_handler.ts";
 
 Deno.test("should return shell config full path if SHELL env is defined", () => {
@@ -31,11 +31,7 @@ Deno.test("should return shell config full path if SHELL env is defined", () => 
 
 Deno.test("should return undefined if SHELL env is undefined", () => {
   const get = stub(Deno.env, "get", mock({ SHELL: undefined }));
-
-  assertEquals(
-    getShellConfigFullPath(),
-    undefined,
-  );
+  assertThrows(() => getShellConfigFullPath());
 
   assertEquals(get.calls, [
     {
