@@ -15,9 +15,9 @@ export default <ScriptsConfiguration> {
       ...common,
       allow: ["all"],
     },
-    install_docker_aliases: {
-      cmd: "scripts/install_aliases.ts docker",
-      desc: "Adds to your shell config file Docker and Docker Compose aliases",
+    install_aliases: {
+      cmd: "scripts/install_aliases.ts docker git",
+      desc: "Adds all aliases to your shell config file",
       ...common,
     },
     install_self_update: {
