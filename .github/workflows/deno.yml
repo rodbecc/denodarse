@@ -23,4 +23,7 @@ jobs:
         run: deno lint
         
       - name: Run tests
-        run: deno test -A --unstable --allow-env
+        uses: jurassiscripts/setup-velociraptor@v1
+        with:
+          velociraptor-version: 1.0.0
+        run: vr test

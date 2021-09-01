@@ -9,6 +9,12 @@ const common: Partial<ScriptDefinition> = {
 
 export default <ScriptsConfiguration> {
   scripts: {
+    test: {
+      cmd: "deno test",
+      desc: "Run tests",
+      ...common,
+      allow: ["all"],
+    },
     install_docker_aliases: {
       cmd: "scripts/install_aliases.ts docker",
       desc: "Adds to your shell config file Docker and Docker Compose aliases",

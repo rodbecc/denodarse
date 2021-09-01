@@ -1,23 +1,49 @@
-import { assertEquals, Stub, stub } from "../dev_deps.ts";
-import { getShellConfigFullPath } from "../utils/shell_handler.ts";
+import { assertEquals, mock, stub } from "/dev_deps.ts";
+import { getShellConfigFullPath } from "/utils/shell_handler.ts";
 
-const mockDenoEnv = (denoEnvMock: string[] | null[]): Stub<
-  {
-    get(key: string): string | undefined;
-    set(key: string, value: string): void;
-    delete(key: string): void;
-    toObject(): { [index: string]: string };
-  }
-> =>
-  stub(Deno.env, "get", [
-    ...denoEnvMock,
-  ]);
+Deno.test("should return shell config full path if SHELL env is defined", () => {
+  const get = stub(
+    Deno.env,
+    "get",
+    mock({ SHELL: "/bin/bash", HOME: "/Users/randomUser" }),
+  );
 
-Deno.test("should return shell config full path", () => {
-  const denoEnvMock = ["zsh", "/Users/$USER"];
-  mockDenoEnv(denoEnvMock);
   assertEquals(
     getShellConfigFullPath(),
-    `${denoEnvMock[1]}/.${denoEnvMock[0]}rc`,
+    "/Users/randomUser/.bashrc",
   );
+
+  assertEquals(get.calls, [
+    {
+      args: ["SHELL"],
+      self: Deno.env,
+      returned: "/bin/bash",
+    },
+    {
+      args: ["HOME"],
+      self: Deno.env,
+      returned: "/Users/randomUser",
+    },
+  ]);
+
+  get.restore();
+});
+
+Deno.test("should return undefined if SHELL env is undefined", () => {
+  const get = stub(Deno.env, "get", mock({ SHELL: undefined }));
+
+  assertEquals(
+    getShellConfigFullPath(),
+    undefined,
+  );
+
+  assertEquals(get.calls, [
+    {
+      args: ["SHELL"],
+      self: Deno.env,
+      returned: undefined,
+    },
+  ]);
+
+  get.restore();
 });
