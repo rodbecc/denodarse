@@ -1,0 +1,4 @@
+#!/usr/bin/sh
+# shellcheck disable=2016
+
+alias gcamend='git commit --amend --no-edit'
