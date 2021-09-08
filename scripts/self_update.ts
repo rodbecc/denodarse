@@ -45,7 +45,7 @@ async function promptUpdate() {
     name: "shouldUpdate",
     prefix: ">",
     message: iro(
-      "There is a new version of Deno Scripts. Do you want to update?",
+      "There is a new version of Denodarse. Do you want to update?",
       bold,
       yellow,
     ),

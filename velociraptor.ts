@@ -32,7 +32,7 @@ export default <ScriptsConfiguration> {
     self_update: {
       cmd: "scripts/self_update.ts",
       desc:
-        "[INTERNAL] Self update your deno-scripts local repository with deno, instead of the bin",
+        "[INTERNAL] Self update your Denodarse local repository with deno, instead of the bin",
       ...common,
       allow: ["env", "read", "write", "run"],
     },
