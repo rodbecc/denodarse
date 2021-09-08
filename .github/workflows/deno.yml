@@ -25,7 +25,7 @@ jobs:
       - name: Setup Velociraptor
         uses: jurassiscripts/setup-velociraptor@v1
         with:
-          velociraptor-version: 1.1.0
-        
+          velociraptor-version: 1.2.0
+
       - name: Run tests
         run: vr test
