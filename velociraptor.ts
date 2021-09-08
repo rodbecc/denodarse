@@ -38,7 +38,7 @@ export default <ScriptsConfiguration> {
     },
     create_self_update_bin: {
       cmd:
-        "deno install --force --allow-run --name deno_scripts_self_update scripts/self_update.ts",
+        "deno install --force --name deno_scripts_self_update scripts/self_update.ts",
       desc: "[INTERNAL] Creates self update script bin",
       ...common,
       allow: ["env", "read", "write", "run"],
