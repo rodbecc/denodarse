@@ -1,6 +1,6 @@
 # DENODARSE
 
-[![Deno](https://github.com/rodbecc/deno-scripts/actions/workflows/deno.yml/badge.svg?event=pull_request)](https://github.com/rodbecc/deno-scripts/actions)
+[![Denodarse](https://img.shields.io/github/workflow/status/rodbecc/denodarse/Deno?label=Denodarse)](https://github.com/rodbecc/denodarse/actions)
 
 </p><img align="center" src="./assets/denon_output.png" style="{ padding: 20px 20px } " alt="the deno mascot dinosaur standing in the rain"></p>
 
