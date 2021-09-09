@@ -1,6 +1,7 @@
 import Ask from "ask";
 import iro, { bold, yellow } from "iro";
 import { dirname, fromFileUrl } from "std/path";
+import { printLogo } from "/logo/print_logo.ts";
 
 const cwd = dirname(fromFileUrl(import.meta.url));
 
@@ -44,7 +45,7 @@ async function promptUpdate() {
     name: "shouldUpdate",
     prefix: ">",
     message: iro(
-      "There is a new version of Deno Scripts. Do you want to update?",
+      "There is a new version of Denodarse. Do you want to update?",
       bold,
       yellow,
     ),
@@ -74,6 +75,6 @@ async function update() {
   });
 
   await (changedToMain
-    ? runPullOriginMainCmd.status()
+    ? runPullOriginMainCmd.status().then(() => printLogo())
     : Promise.reject(new TextDecoder().decode(error)));
 }

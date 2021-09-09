@@ -29,7 +29,7 @@ Deno.test("should return shell config full path if SHELL env is defined", () => 
   get.restore();
 });
 
-Deno.test("should return undefined if SHELL env is undefined", () => {
+Deno.test("should throw error if SHELL env is undefined", () => {
   const get = stub(Deno.env, "get", mock({ SHELL: undefined }));
   assertThrows(() => getShellConfigFullPath());
 

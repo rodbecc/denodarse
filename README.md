@@ -1,4 +1,4 @@
-# DENO SCRIPTS
+# DENODARSE
 
 [![Deno](https://github.com/rodbecc/deno-scripts/actions/workflows/deno.yml/badge.svg?event=pull_request)](https://github.com/rodbecc/deno-scripts/actions)
 
