@@ -1,6 +1,7 @@
 import Ask from "ask";
 import iro, { bold, yellow } from "iro";
 import { dirname, fromFileUrl } from "std/path";
+
 import { printLogo } from "/logo/print_logo.ts";
 
 const cwd = dirname(fromFileUrl(import.meta.url));
