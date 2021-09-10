@@ -18,5 +18,8 @@
     "editor.defaultFormatter": "redhat.vscode-yaml"
   },
   "editor.defaultFormatter": "denoland.vscode-deno",
-  "editor.formatOnSave": true
+  "editor.formatOnSave": true,
+  "typescriptHero.imports.stringQuoteStyle": "\"",
+  "typescriptHero.imports.organizeOnSave": true,
+  "typescriptHero.imports.disableImportRemovalOnOrganize": true
 }

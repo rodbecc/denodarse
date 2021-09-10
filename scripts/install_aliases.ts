@@ -1,5 +1,6 @@
 import { existsSync } from "std/fs";
 import { fromFileUrl, normalize } from "std/path";
+
 import { appendToFile } from "/utils/file_handler.ts";
 import { getShellConfigFullPath } from "/utils/shell_handler.ts";
 
