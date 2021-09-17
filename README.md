@@ -1,4 +1,6 @@
-# DENO SCRIPTS
+# DENODARSE
+
+[![Denodarse](https://img.shields.io/github/workflow/status/rodbecc/denodarse/Continuous%20Integration?label=Denodarse)](https://github.com/rodbecc/denodarse/actions)
 
 </p><img align="center" src="./assets/denon_output.png" style="{ padding: 20px 20px } " alt="the deno mascot dinosaur standing in the rain"></p>
 
@@ -24,7 +26,7 @@ Install **Velociraptor** to watch files, list available scripts, and run
 predefined scripts:
 
 ```sh
-deno install -qA -n vr https://deno.land/x/velociraptor@1.1.0/cli.ts
+deno install -qA -n vr https://deno.land/x/velociraptor@1.2.0/cli.ts
 ```
 
 To list all available scripts, run **Velociraptor** with no args:

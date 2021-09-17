@@ -9,9 +9,15 @@ const common: Partial<ScriptDefinition> = {
 
 export default <ScriptsConfiguration> {
   scripts: {
-    install_docker_aliases: {
-      cmd: "scripts/install_aliases.ts docker",
-      desc: "Adds to your shell config file Docker and Docker Compose aliases",
+    test: {
+      cmd: "deno test",
+      desc: "Run tests",
+      ...common,
+      allow: ["all"],
+    },
+    install_aliases: {
+      cmd: "scripts/install_aliases.ts docker git",
+      desc: "Adds all aliases to your shell config file",
       ...common,
     },
     install_self_update: {
@@ -26,13 +32,13 @@ export default <ScriptsConfiguration> {
     self_update: {
       cmd: "scripts/self_update.ts",
       desc:
-        "[INTERNAL] Self update your deno-scripts local repository with deno, instead of the bin",
+        "[INTERNAL] Self update your Denodarse local repository with deno, instead of the bin",
       ...common,
       allow: ["env", "read", "write", "run"],
     },
     create_self_update_bin: {
       cmd:
-        "deno install --force --allow-run --name deno_scripts_self_update scripts/self_update.ts",
+        "deno install --force --name deno_scripts_self_update scripts/self_update.ts",
       desc: "[INTERNAL] Creates self update script bin",
       ...common,
       allow: ["env", "read", "write", "run"],

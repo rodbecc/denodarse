@@ -9,6 +9,17 @@
   "deno.suggest.imports.hosts": {
     "https://deno.land": true
   },
+  "yaml.completion": true,
+  "yaml.format.enable": true,
+  "yaml.validate": true,
+  "[yaml]": {
+    "editor.formatOnType": true,
+    "editor.codeLens": true,
+    "editor.defaultFormatter": "redhat.vscode-yaml"
+  },
   "editor.defaultFormatter": "denoland.vscode-deno",
-  "editor.formatOnSave": true
+  "editor.formatOnSave": true,
+  "typescriptHero.imports.stringQuoteStyle": "\"",
+  "typescriptHero.imports.organizeOnSave": true,
+  "typescriptHero.imports.disableImportRemovalOnOrganize": true
 }
