@@ -2,7 +2,7 @@ import { appendToFile } from "/utils/file_handler.ts";
 import { getShellConfigFullPath } from "/utils/shell_handler.ts";
 
 function installSelfUpdateBin() {
-  const commentLine = "# Deno Scripts - Self update script:";
+  const commentLine = "# Conflict here";
   const command = "deno_scripts_self_update";
   const configFile = getShellConfigFullPath();
   if (configFile) {
