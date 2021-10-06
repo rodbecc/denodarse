@@ -2,6 +2,7 @@ import Ask from "ask";
 import iro, { bold, yellow } from "iro";
 import { dirname, fromFileUrl } from "std/path";
 
+import { textDecoder } from "/dev_deps.ts";
 import { printLogo } from "/logo/print_logo.ts";
 
 const cwd = dirname(fromFileUrl(import.meta.url));
@@ -17,16 +18,14 @@ async function checkNewVersion() {
   const gitLogOriginCmd = "git log origin/main -1 --format=%H".split(" ");
   const gitLogLocalCmd = "git log main -1 --format=%H".split(" ");
 
-  const decoder = new TextDecoder();
-
-  const localHash = decoder.decode(
+  const localHash = textDecoder(
     await Deno.run({
       cmd: gitLogOriginCmd,
       stdout: "piped",
       cwd,
     }).output(),
   );
-  const originHash = decoder.decode(
+  const originHash = textDecoder(
     await Deno.run({
       cmd: gitLogLocalCmd,
       stdout: "piped",
@@ -77,5 +76,5 @@ async function update() {
 
   await (changedToMain
     ? runPullOriginMainCmd.status().then(() => printLogo())
-    : Promise.reject(new TextDecoder().decode(error)));
+    : Promise.reject(textDecoder(error)));
 }
