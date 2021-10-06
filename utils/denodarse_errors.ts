@@ -1,4 +1,4 @@
-import iro, { bold, red } from "iro";
+import iro, { bold, red } from 'iro';
 
 type ErrorsArgs = {
   SHELL_CONFIG_NOT_FOUND: [];
@@ -21,7 +21,6 @@ export class DenodarseErrors {
 }
 
 const errorsDictionary: ErrorsDictionary = {
-  SHELL_CONFIG_NOT_FOUND: () => "No SHELL was found!",
-  WRITE_FILE: (...args) =>
-    `An error ocurred while trying to write to ${args[0]} file!`,
+  SHELL_CONFIG_NOT_FOUND: () => 'No SHELL was found!',
+  WRITE_FILE: (...args) => `An error ocurred while trying to write to ${args[0]} file!`,
 };
