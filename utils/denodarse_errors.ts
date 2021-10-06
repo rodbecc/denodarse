@@ -10,16 +10,11 @@ type ErrorsCode = keyof ErrorsArgs;
 type Args<T extends ErrorsCode> = ErrorsArgs[T];
 
 type ErrorsDictionary = {
-  [Property in keyof ErrorsArgs]: (
-    ...args: (string | number)[]
-  ) => string;
+  [Property in keyof ErrorsArgs]: (...args: (string | number)[]) => string;
 };
 
 export class DenodarseErrors {
-  static get<T extends ErrorsCode>(
-    errorCode: T,
-    ...args: Args<T>
-  ): Error {
+  static get<T extends ErrorsCode>(errorCode: T, ...args: Args<T>): Error {
     const errorCallback = errorsDictionary[errorCode];
     return Error(iro(errorCallback(...args), bold, red));
   }
