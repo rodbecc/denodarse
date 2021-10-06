@@ -1,8 +1,6 @@
-# DENODARSE
+</p><img align="center" src="./assets/DenodarseLogo.png" style="{ padding: 20px 20px } " alt="Denodarse Logo"></p>
 
 [![Denodarse](https://img.shields.io/github/workflow/status/rodbecc/denodarse/Continuous%20Integration?label=Denodarse)](https://github.com/rodbecc/denodarse/actions)
-
-</p><img align="center" src="./assets/denon_output.png" style="{ padding: 20px 20px } " alt="the deno mascot dinosaur standing in the rain"></p>
 
 ## Install
 
