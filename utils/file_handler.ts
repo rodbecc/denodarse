@@ -11,9 +11,9 @@ export async function appendToFile(filePath: string, textLines: string[]) {
     try {
       const configFile = await Deno.readTextFile(filePath);
       await Deno.writeTextFile(filePath, configFile + `\n${escapedCommands}\n`);
-      console.log(`The ${fileName} file was updated!`);
+      DenodarseErrors.getInfo('FILE_WRITE_SUCCESS', fileName);
     } catch {
-      throw DenodarseErrors.get('WRITE_FILE', fileName);
+      throw DenodarseErrors.getError('FILE_WRITE_FAIL', fileName);
     }
   }
 }

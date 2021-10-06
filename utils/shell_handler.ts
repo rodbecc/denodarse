@@ -9,5 +9,5 @@ export function getShellConfigFullPath(): string {
     const defaultShell = basename(shellPath);
     return `${Deno.env.get('HOME')}/.${defaultShell}rc`;
   }
-  throw DenodarseErrors.get('SHELL_CONFIG_NOT_FOUND');
+  throw DenodarseErrors.getError('SHELL_CONFIG_NOT_FOUND');
 }
