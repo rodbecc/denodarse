@@ -1,6 +1,6 @@
 import { basename } from 'std/path';
 
-import { DenodarseErrors } from '/utils/denodarse_errors.ts';
+import { DenodarseLogger } from '/utils/denodarse_logger.ts';
 
 export function getShellConfigFullPath(): string {
   const shellPath = Deno.env.get('SHELL');
@@ -9,5 +9,5 @@ export function getShellConfigFullPath(): string {
     const defaultShell = basename(shellPath);
     return `${Deno.env.get('HOME')}/.${defaultShell}rc`;
   }
-  throw DenodarseErrors.getError('SHELL_CONFIG_NOT_FOUND');
+  throw DenodarseLogger.getError('SHELL_CONFIG_NOT_FOUND');
 }

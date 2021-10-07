@@ -37,7 +37,7 @@ type MessagesDictionary = {
   };
 };
 
-export class DenodarseErrors {
+export class DenodarseLogger {
   static getError<T extends keyof ExtractMessagesConfig<'error'>>(messageCode: T, ...args: Args<T>): Error {
     return Error(this.getMessage(messageCode, ...args));
   }
