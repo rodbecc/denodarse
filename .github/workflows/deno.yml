@@ -17,10 +17,10 @@ jobs:
           deno-version: v1.14.3
 
       - name: Verify formatting
-        run: deno fmt --check
+        run: deno fmt --check --config=./deno_config.json
 
       - name: Run linter
-        run: deno lint
+        run: deno lint --config=./deno_config.json
 
       - name: Setup Velociraptor
         uses: jurassiscripts/setup-velociraptor@v1
