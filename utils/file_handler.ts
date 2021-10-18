@@ -1,19 +1,19 @@
-import { existsSync } from "std/fs";
-import { basename } from "std/path";
+import { existsSync } from 'std/fs';
+import { basename } from 'std/path';
 
-import { DenodarseErrors } from "/utils/denodarse_errors.ts";
+import { DenodarseLogger } from '/utils/denodarse_logger.ts';
 
 export async function appendToFile(filePath: string, textLines: string[]) {
-  const escapedCommands = textLines.map((command) => `${command}`).join("\n");
+  const escapedCommands = textLines.map((command) => `${command}`).join('\n');
 
   if (existsSync(filePath)) {
     const fileName = basename(filePath);
     try {
       const configFile = await Deno.readTextFile(filePath);
       await Deno.writeTextFile(filePath, configFile + `\n${escapedCommands}\n`);
-      console.log(`The ${fileName} file was updated!`);
+      DenodarseLogger.getInfo('FILE_WRITE_SUCCESS', fileName);
     } catch {
-      throw DenodarseErrors.get("WRITE_FILE", fileName);
+      throw DenodarseLogger.getError('FILE_WRITE_FAIL', fileName);
     }
   }
 }
