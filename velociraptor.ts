@@ -40,5 +40,10 @@ export default <ScriptsConfiguration> {
       ...common,
       allow: ['env', 'read', 'write', 'run'],
     },
+    report_telegram: {
+      cmd: 'scripts/report_telegram.ts',
+      desc: '[INTERNAL] Send report to telegram',
+      ...common,
+    },
   },
 };

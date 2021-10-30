@@ -9,23 +9,32 @@ jobs:
 
     steps:
       - name: Setup repo
+        id: setup_repo
         uses: actions/checkout@v2
 
       - name: Setup Deno
+        id: setup_deno
         uses: denoland/setup-deno@v1
         with:
           deno-version: v1.14.3
 
       - name: Verify formatting
+        id: verify_formatting
         run: deno fmt --check --config=./deno.json
 
       - name: Run linter
+        id: run_linter
         run: deno lint --config=./deno.json
 
       - name: Setup Velociraptor
+        id: setup_velociraptor
         uses: jurassiscripts/setup-velociraptor@v1
         with:
           velociraptor-version: 1.2.0
+
+      - name: Running VR Telegram
+        id: running_telegram
+        run: vr report_telegram --steps "${{ toJSON(steps) }}"
 
       - name: Run tests
         run: vr test
