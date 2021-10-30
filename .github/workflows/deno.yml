@@ -27,5 +27,13 @@ jobs:
         with:
           velociraptor-version: 1.2.0
 
+      - uses: actions/checkout@master
+      - name: Running Test
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: Loucurinha
+
       - name: Run tests
         run: vr test
