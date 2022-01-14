@@ -1,15 +1,44 @@
 import Ask from 'ask';
 import iro, { bold, yellow } from 'iro';
+import { difference, format } from 'std/datetime';
 import { dirname, fromFileUrl } from 'std/path';
 
 import { textDecoder } from '/dev_deps.ts';
 import { printLogo } from '/logo/print_logo.ts';
 
 const cwd = dirname(fromFileUrl(import.meta.url));
+const today = format(new Date(), 'yyyy-MM-dd');
+const lastCheckUpdateFileName = 'last_check_update.txt';
 
-checkNewVersion();
+shouldCheckForUpdates();
+
+async function shouldCheckForUpdates() {
+  const checkUpdateIntervalEnv = Deno.env.get('CHECK_UPDATE_INTERVAL');
+
+  if (!checkUpdateIntervalEnv) {
+    return checkNewVersion();
+  }
+
+  try {
+    const lastCheckUpdateDate = new Date(
+      await Deno.readTextFile(
+        lastCheckUpdateFileName,
+      ),
+    );
+
+    const daysSinceLastCheckUpdate = difference(lastCheckUpdateDate, new Date(today), {
+      units: ['days'],
+    }).days;
+
+    daysSinceLastCheckUpdate &&
+      daysSinceLastCheckUpdate >= +checkUpdateIntervalEnv && checkNewVersion();
+  } catch {
+    checkNewVersion();
+  }
+}
 
 async function checkNewVersion() {
+  storeLastCheckUpdateDate();
   const _fetch = await Deno.run({ cmd: 'git fetch -q origin main'.split(' '), cwd }).status();
 
   const gitLogOriginCmd = 'git log origin/main -1 --format=%H'.split(' ');
@@ -53,4 +82,14 @@ async function update() {
   const runPullOriginMainCmd = Deno.run({ cmd: 'git pull origin main --ff-only'.split(' '), cwd });
 
   await (changedToMain ? runPullOriginMainCmd.status().then(() => printLogo()) : Promise.reject(textDecoder(error)));
+}
+
+async function storeLastCheckUpdateDate() {
+  try {
+    await Deno.writeTextFile(lastCheckUpdateFileName, today);
+  } catch {
+    console.error(
+      `An error ocurred while creating ${lastCheckUpdateFileName}!`,
+    );
+  }
 }
