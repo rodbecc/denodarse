@@ -28,10 +28,11 @@ async function shouldCheckForUpdates() {
 
     const daysSinceLastCheckUpdate = difference(lastCheckUpdateDate, new Date(today), {
       units: ['days'],
-    }).days;
+    }).days as number;
 
-    daysSinceLastCheckUpdate &&
-      daysSinceLastCheckUpdate >= +checkUpdateIntervalEnv && checkNewVersion();
+    if (daysSinceLastCheckUpdate >= +checkUpdateIntervalEnv) {
+      checkNewVersion();
+    }
   } catch {
     checkNewVersion();
   }
