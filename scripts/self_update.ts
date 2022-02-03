@@ -87,7 +87,7 @@ async function update() {
 
 async function storeLastCheckUpdateDate() {
   try {
-    await Deno.writeTextFile(lastCheckUpdateFileName, today);
+    await Deno.writeTextFile(`${cwd}/../${lastCheckUpdateFileName}`, today);
   } catch {
     console.error(
       `An error ocurred while creating ${lastCheckUpdateFileName}!`,
