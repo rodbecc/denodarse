@@ -22,5 +22,11 @@
   "editor.formatOnSave": true,
   "typescriptHero.imports.stringQuoteStyle": "'",
   "typescriptHero.imports.organizeOnSave": true,
-  "typescriptHero.imports.disableImportRemovalOnOrganize": true
+  "typescriptHero.imports.disableImportRemovalOnOrganize": true,
+  "[json]": {
+    "editor.defaultFormatter": "denoland.vscode-deno"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "denoland.vscode-deno"
+  }
 }

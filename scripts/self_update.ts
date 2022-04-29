@@ -1,4 +1,5 @@
 import Ask from 'ask';
+import { config } from 'dotenv';
 import iro, { bold, yellow } from 'iro';
 import { difference, format } from 'std/datetime';
 import { dirname, fromFileUrl } from 'std/path';
@@ -9,11 +10,12 @@ import { printLogo } from '/logo/print_logo.ts';
 const cwd = dirname(fromFileUrl(import.meta.url));
 const today = format(new Date(), 'yyyy-MM-dd');
 const lastCheckUpdateFileName = 'last_check_update.txt';
+const { CHECK_UPDATE_INTERVAL } = config({ safe: true, allowEmptyValues: true });
 
 shouldCheckForUpdates();
 
-async function shouldCheckForUpdates() {
-  const checkUpdateIntervalEnv = Deno.env.get('CHECK_UPDATE_INTERVAL');
+export async function shouldCheckForUpdates() {
+  const checkUpdateIntervalEnv = CHECK_UPDATE_INTERVAL;
 
   if (!checkUpdateIntervalEnv) {
     return checkNewVersion();
@@ -29,7 +31,6 @@ async function shouldCheckForUpdates() {
     const daysSinceLastCheckUpdate = difference(lastCheckUpdateDate, new Date(today), {
       units: ['days'],
     }).days as number;
-
     if (daysSinceLastCheckUpdate >= +checkUpdateIntervalEnv) {
       checkNewVersion();
     }
@@ -38,7 +39,7 @@ async function shouldCheckForUpdates() {
   }
 }
 
-async function checkNewVersion() {
+export async function checkNewVersion() {
   storeLastCheckUpdateDate();
   const _fetch = await Deno.run({ cmd: 'git fetch -q origin main'.split(' '), cwd }).status();
 
